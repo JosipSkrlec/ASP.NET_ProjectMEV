@@ -1,0 +1,41 @@
+﻿@model Menzy.ViewModels.UserFormViewModel
+@{
+    ViewBag.Title = "Izmjena podataka";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Uredi svoje podatke</h2>
+
+@using (Html.BeginForm("Save", "EditUser"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.User.Ime)
+        @Html.TextBoxFor(m => m.User.Ime, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.User.Ime)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.User.Prezime)
+        @Html.TextBoxFor(m => m.User.Prezime, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.User.Prezime)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.User.JMBAG)
+        @Html.TextBoxFor(m => m.User.JMBAG, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.User.JMBAG)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.User.KojiFaks)
+        @Html.TextBoxFor(m => m.User.KojiFaks, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.User.Redovni)
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.User.Redovni)
+        </label>
+    </div>
+    @Html.HiddenFor(m => m.User.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
