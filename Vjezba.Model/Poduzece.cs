@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vjezba.Model
 {
-    public class Poduzece : IdentityUser
+    public class Poduzece
     {
         [Required]
         public int IDPoduzece { get; set; }
@@ -16,7 +16,7 @@ namespace Vjezba.Model
         public string Drzava { get; set; }
         public int Tel { get; set; }
         public int Mob { get; set; }
-        public override string Email { get; set; }
+        public string Email { get; set; }
         public long OIB{ get; set; }
         public string OdgovornaOsoba { get; set; }
         public int ZiroRacun { get; set; }

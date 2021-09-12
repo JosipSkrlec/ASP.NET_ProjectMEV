@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vjezba.Model
 {
-    public class Kupac : IdentityUser
+    public class Kupac
     {
         [Required]
         public int IDKupac { get; set; }

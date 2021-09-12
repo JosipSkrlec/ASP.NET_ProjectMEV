@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vjezba.Model
 {
-    public class Racun : IdentityUser
+    public class Racun
     {
         [Required]
         public int IDRacun { get; set; }

@@ -14,7 +14,10 @@ namespace Vjezba.DAL
         public DbSet<Poduzece> poduzece { get; set; }
         public DbSet<Racun> racun { get; set; }
         public DbSet<RacunStavka> racunStavka { get; set; }
-        public DbSet<Usluge> usluge { get; set; }
+        
+        // MAIN db SETS.. ovi iznad ce biti mozda opcionalni
+        public DbSet<Proizvod> proizvod { get; set; }
+        public DbSet<Usluga> usluga { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,9 +30,15 @@ namespace Vjezba.DAL
             modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 1, Naziv = "Ivan", Adresa = "Zagorska3", Grad = "Konjscina", Drzava = "Hrvatska", OIB = 12345678912 });
             modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 2, Naziv = "Ivan2", Adresa = "Zagorska34", Grad = "Konjscina2", Drzava = "Hrvatska2", OIB = 12345678956 });
             modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 3, Naziv = "Ivan3", Adresa = "Zagorska35", Grad = "Konjscina3", Drzava = "Hrvatska3", OIB = 12345678987 });
+            
+            // MAIN 
+            modelBuilder.Entity<Proizvod>().HasData(new Proizvod { IDProizvod = 1, Cijena = 45, MjernaJedinica = "KN", Naziv="Mjesana Pizza" });
+            modelBuilder.Entity<Proizvod>().HasData(new Proizvod { IDProizvod = 2, Cijena = 55, MjernaJedinica = "KN", Naziv="Classic Pizza" });
+            modelBuilder.Entity<Proizvod>().HasData(new Proizvod { IDProizvod = 3, Cijena = 60, MjernaJedinica = "KN", Naziv="Slavonska Jumbo Pizza" });
 
+      
             // TODO - napraviti ostale migracijske skripte
-
         }
+
     }
 }

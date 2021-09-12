@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vjezba.Model
 {
-    public class Korisnik : IdentityUser
+    public class Korisnik
     {
         [Required]
         public int IDKorisnik { get; set; }
@@ -14,7 +14,7 @@ namespace Vjezba.Model
         [Required(ErrorMessage = "Surname is required")]
         public string Prezime { get; set; }
         [Required(ErrorMessage = "Email is required")]
-        public override string Email { get; set; }
+        public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
         public DateTime LicencaExp { get; set; }

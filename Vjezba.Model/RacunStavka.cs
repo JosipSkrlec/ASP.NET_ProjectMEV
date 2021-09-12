@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vjezba.Model
 {
-    public class RacunStavka : IdentityUser
+    public class RacunStavka
     {
         // dodana vise jer idracun vec postoji za racun koji je foreign key
         [Required]
@@ -13,8 +13,8 @@ namespace Vjezba.Model
         public DateTime Datum { get; set; }
         [ForeignKey(nameof(Racun))]
         public Racun IDRacun { get; set; }
-        [ForeignKey(nameof(Usluge))]
-        public Usluge IDUsluga { get; set; }
+        [ForeignKey(nameof(Usluga))]
+        public Usluga IDUsluga { get; set; }
         public int Kolicina { get; set; }
         public int Cijena { get; set; }
         public int Rabat{ get; set; }
