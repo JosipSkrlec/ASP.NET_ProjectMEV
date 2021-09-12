@@ -20,9 +20,9 @@ namespace Vjezba.Web.Controllers
     public class ThreeDController : BaseController
     {
         private static string filePathForDB;
-        private ThreeDModelDbContext _dbContext;
+        private RacunModelDbContext _dbContext;
 
-        public ThreeDController(ThreeDModelDbContext dbContext, UserManager<AppUser> userManager) : base(userManager)
+        public ThreeDController(RacunModelDbContext dbContext, UserManager<AppUser> userManager) : base(userManager)
         {
             this._dbContext = dbContext;
         }
@@ -30,7 +30,8 @@ namespace Vjezba.Web.Controllers
         //[AllowAnonymous]
         public IActionResult Index(ThreeDFilterModel filter)
         {
-            var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
+            //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
+            var ThreeDQuery = this._dbContext.korisnik.Include(p => p.IDPoduzece).ToList();
 
             return View("Index", model: ThreeDQuery);
         }
@@ -59,7 +60,7 @@ namespace Vjezba.Web.Controllers
                 int categoryid = model.CategoryID;
                 model.CategoryID = categoryid;
 
-                this._dbContext.threeD.Add(model);
+                //this._dbContext.threeD.Add(model);
                 this._dbContext.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
@@ -76,13 +77,13 @@ namespace Vjezba.Web.Controllers
         [Authorize(Roles = "Admin,User")]
         public IActionResult Details(int? id = null)
         {
-            var ThreeD = this._dbContext.threeD
-                .Include(t => t.objAttachment)
-            .FirstOrDefault(p => p.objAttachmentID == id);
+            //var ThreeD = this._dbContext.threeD
+            //    .Include(t => t.objAttachment)
+            //.FirstOrDefault(p => p.objAttachmentID == id);
 
-            ViewBag.FilePath = ThreeD.objAttachment.OBJFilePath;
-            ViewBag.FileComment = ThreeD.Comment;
-            ViewBag.FileDateModified = ThreeD.UploadedDateTime;
+            //ViewBag.FilePath = ThreeD.objAttachment.OBJFilePath;
+            //ViewBag.FileComment = ThreeD.Comment;
+            //ViewBag.FileDateModified = ThreeD.UploadedDateTime;
             return View("_3DModelView");
         }
 
@@ -90,24 +91,24 @@ namespace Vjezba.Web.Controllers
         [HttpPost]
         public IActionResult AjaxSearch(ThreeDFilterModel filter)
         {
-            var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment)
-                .Include(c => c.Category)
-                .AsQueryable();
+            //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment)
+            //    .Include(c => c.Category)
+            //    .AsQueryable();
 
             filter = filter ?? new ThreeDFilterModel();
 
-            if (!string.IsNullOrWhiteSpace(filter.Name))
-            {
-                ThreeDQuery = ThreeDQuery.Where(p => p.Name.ToLower().Contains(filter.Name.ToLower()));
-            }
-            if (!string.IsNullOrWhiteSpace(filter.Category))
-            {
-                ThreeDQuery = ThreeDQuery.Where(p => p.Category.Name.ToLower().Contains(filter.Category.ToLower()));
-            }               
+            //if (!string.IsNullOrWhiteSpace(filter.Name))
+            //{
+            //    ThreeDQuery = ThreeDQuery.Where(p => p.Name.ToLower().Contains(filter.Name.ToLower()));
+            //}
+            //if (!string.IsNullOrWhiteSpace(filter.Category))
+            //{
+            //    ThreeDQuery = ThreeDQuery.Where(p => p.Category.Name.ToLower().Contains(filter.Category.ToLower()));
+            //}               
 
-            var model = ThreeDQuery.ToList();
+            //var model = ThreeDQuery.ToList();
 
-            return PartialView("_IndexTable", model: model);
+            return PartialView("_IndexTable"/*, model: model*/);
         }
 
         public void UploadObjFile(IFormFile file)
@@ -132,11 +133,11 @@ namespace Vjezba.Web.Controllers
             listItem.Value = "";
             selectItems.Add(listItem);
 
-            foreach (var category in this._dbContext.threeDCategoryes)
-            {
-                listItem = new SelectListItem(category.Name, category.ID.ToString());
-                selectItems.Add(listItem);      
-            }
+            //foreach (var category in this._dbContext.threeDCategoryes)
+            //{
+            //    listItem = new SelectListItem(category.Name, category.ID.ToString());
+            //    selectItems.Add(listItem);      
+            //}
             ViewBag.PossibleCategoryes = selectItems;
         }
     }

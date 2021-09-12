@@ -28,7 +28,7 @@ namespace Vjezba.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ThreeDModelDbContext>(options =>
+            services.AddDbContext<RacunModelDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ThreeDModelDbContext"),
                     opt => opt.MigrationsAssembly("Vjezba.DAL")));
@@ -39,7 +39,7 @@ namespace Vjezba.Web
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
-                .AddEntityFrameworkStores<ThreeDModelDbContext>();
+                .AddEntityFrameworkStores<RacunModelDbContext>();
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();

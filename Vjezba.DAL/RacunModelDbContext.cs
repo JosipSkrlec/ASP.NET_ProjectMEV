@@ -5,9 +5,9 @@ using Vjezba.Model;
 
 namespace Vjezba.DAL
 {
-    public class ThreeDModelDbContext : IdentityDbContext<AppUser>
+    public class RacunModelDbContext : IdentityDbContext<AppUser>
     {
-        public ThreeDModelDbContext(DbContextOptions<ThreeDModelDbContext> options) : base(options) { }
+        public RacunModelDbContext(DbContextOptions<RacunModelDbContext> options) : base(options) { }
 
         public DbSet<Korisnik> korisnik { get; set; }
         public DbSet<Kupac> kupac { get; set; }

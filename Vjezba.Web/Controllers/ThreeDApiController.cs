@@ -13,91 +13,87 @@ using Vjezba.Model;
 
 namespace Vjezba.Web.Controllers
 {
-    [Authorize]
-    [ApiController]
-    [Route("api")]
-    public class ThreeDApiController : BaseController
-    {
-        private ThreeDModelDbContext _dbContext;
+    //[Authorize]
+    //[ApiController]
+    //[Route("api")]
+    //public class ThreeDApiController : BaseController
+    //{
+    //    private RacunModelDbContext _dbContext;
 
-        public ThreeDApiController(ThreeDModelDbContext dbContext, UserManager<AppUser> userManager) : base(userManager)
-        {
-            this._dbContext = dbContext;
-        }
+        //public ThreeDApiController(RacunModelDbContext dbContext, UserManager<AppUser> userManager) : base(userManager)
+        //{
+        //    this._dbContext = dbContext;
+        //}
 
-        [AllowAnonymous]
-        [Route("AllThreeDObjects")]
-        public IActionResult Get()
-        {
-            var clients = _dbContext.threeD.ToList();
-            List<ThreeDDTO> Threeds = new List<ThreeDDTO>();
-            foreach (var c in clients)
-            {
-                Threeds.Add(GetThreeDDTO(c));
-            }
+        //[AllowAnonymous]
+        //[Route("AllThreeDObjects")]
+        //public IActionResult Get()
+        //{
+        //    var clients = _dbContext.threeD.ToList();
+        //    List<ThreeDDTO> Threeds = new List<ThreeDDTO>();
+        //    foreach (var c in clients)
+        //    {
+        //        Threeds.Add(GetThreeDDTO(c));
+        //    }
 
-            return Ok(Threeds);
-        }
+        //    return Ok(Threeds);
+        //}
 
-        [AllowAnonymous]
-        [HttpDelete]
-        [Route("DeleteThreeD/{id}")]
-        public IActionResult Delete(int id)
-        {
-            if (_dbContext.threeD.Find(id) == null)
-            {
-                return NotFound();
-            }
-            _dbContext.threeD.Remove(_dbContext.threeD.Find(id));
-            _dbContext.SaveChanges();
-            return Ok();
-        }
+        //[AllowAnonymous]
+        //[HttpDelete]
+        //[Route("DeleteThreeD/{id}")]
+        //public IActionResult Delete(int id)
+        //{
+        //    if (_dbContext.threeD.Find(id) == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    _dbContext.threeD.Remove(_dbContext.threeD.Find(id));
+        //    _dbContext.SaveChanges();
+        //    return Ok();
+        //}
 
-        [AllowAnonymous]
-        [Route("ChangeNameOfObject/{id}")]
-        [HttpPut]
-        public IActionResult Put(int id, [FromBody] ThreeD model)
-        {
-            if (model == null)
-            {
-                return BadRequest();
-            }
-            if (_dbContext.threeD.Find(id) == null)
-            {
-                return NotFound();
-            }
-            ThreeD threed = this._dbContext.threeD.Find(id);
-            model.UpdatedBy = UserId;
-            threed = model;
-            _dbContext.SaveChanges();
+        //[AllowAnonymous]
+        //[Route("ChangeNameOfObject/{id}")]
+        //[HttpPut]
+        //public IActionResult Put(int id, [FromBody] ThreeD model)
+        //{
+        //    if (model == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    if (_dbContext.threeD.Find(id) == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ThreeD threed = this._dbContext.threeD.Find(id);
+        //    model.UpdatedBy = UserId;
+        //    threed = model;
+        //    _dbContext.SaveChanges();
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        private ThreeDDTO GetThreeDDTO(ThreeD ThreedObject)
-        {
-            ThreeDDTO dto = new ThreeDDTO()
-            {
-                Comment = ThreedObject.Comment,
-                UpdatedDateTime = ThreedObject.UploadedDateTime,
-            };
+        //private ThreeDDTO GetThreeDDTO(ThreeD ThreedObject)
+        //{
+        //    ThreeDDTO dto = new ThreeDDTO()
+        //    {
+        //        Comment = ThreedObject.Comment,
+        //        UpdatedDateTime = ThreedObject.UploadedDateTime,
+        //    };
 
-            return dto;
-        }
+        //    return dto;
+        //}
 
-        public class ThreeDDTO
-        {
-            public int ID { get; set; }
-            public String Comment { get; set; }
-            public DateTime UpdatedDateTime { get; set; }
-        }
+        //public class ThreeDDTO
+        //{
+        //    public int ID { get; set; }
+        //    public String Comment { get; set; }
+        //    public DateTime UpdatedDateTime { get; set; }
+        //}
 
-    }
+    //}
 }
-
-
-
-
 
 
 //    [AllowAnonymous]
