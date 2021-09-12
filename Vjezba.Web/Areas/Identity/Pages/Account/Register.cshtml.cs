@@ -25,11 +25,7 @@ namespace Vjezba.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public RegisterModel(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+        public RegisterModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -46,6 +42,16 @@ namespace Vjezba.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            // DODANO za ime i prezime field na register view
+            [Required]
+            [Display(Name = "Ime")]
+            public string Name { get; set; }
+
+            [Required]
+            [Display(Name = "Prezime")]
+            public string Surname { get; set; }
+            // DODANO do tud!
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -57,14 +63,15 @@ namespace Vjezba.Web.Areas.Identity.Pages.Account
             [Display(Name = "Password")]
             public string Password { get; set; }
 
-            [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
+            [DataType(DataType.Password)]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
             [Required]
             [RegularExpression("[0-9]{13}", ErrorMessage = "JMBG je obavezan")]
             public string JMBG { get; set; }
+
             [Required]
             [RegularExpression("[0-9]{11}", ErrorMessage = "OIB je obavezan")]
             public string OIB { get; set; }

@@ -7,34 +7,29 @@ namespace Vjezba.DAL
 {
     public class ThreeDModelDbContext : IdentityDbContext<AppUser>
     {
-        public ThreeDModelDbContext(DbContextOptions<ThreeDModelDbContext> options)
-            : base(options)
-        {
+        public ThreeDModelDbContext(DbContextOptions<ThreeDModelDbContext> options) : base(options) { }
 
-        }
-
-        public DbSet<ThreeD> threeD { get; set; }
-        public DbSet<ThreeDCategory> threeDCategoryes { get; set; }
-        public DbSet<OBJAttachment> ThreeDAttachments { get; set; }
+        public DbSet<Korisnik> korisnik { get; set; }
+        public DbSet<Kupac> kupac { get; set; }
+        public DbSet<Poduzece> poduzece { get; set; }
+        public DbSet<Racun> racun { get; set; }
+        public DbSet<RacunStavka> racunStavka { get; set; }
+        public DbSet<Usluge> usluge { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 1, Name = "Game ready" });
-            modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 2, Name = "Render ready" });
-            modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 3, Name = "Low poly" });
-            modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 4, Name = "High poly" });
+            modelBuilder.Entity<Korisnik>().HasData(new Korisnik { IDKorisnik = 1, Ime = "Ivan", Prezime = "Bockal", Email = "IvanB@gmail.com", Password = "!1Ivan123", LicencaExp = DateTime.Now, Vrsta = "ObicanKorisnik", Aktivan = true, AktivanLink = "AktivanLink" });
+            modelBuilder.Entity<Korisnik>().HasData(new Korisnik { IDKorisnik = 2, Ime = "Ivan2", Prezime = "Bockal2", Email = "IvanB2@gmail.com", Password = "!1Ivan123", LicencaExp = DateTime.Now, Vrsta = "ObicanKorisnik", Aktivan = false, AktivanLink = "AktivanLink2" });
+            modelBuilder.Entity<Korisnik>().HasData(new Korisnik { IDKorisnik = 3, Ime = "Ivan3", Prezime = "Bockal3", Email = "IvanB3@gmail.com", Password = "!1Ivan123", LicencaExp = DateTime.Now, Vrsta = "NeobicanKorisnik", Aktivan = true, AktivanLink = "AktivanLink3" });
 
-            modelBuilder.Entity<OBJAttachment>().HasData(new OBJAttachment { ID = 1, OBJFilePath = "/3DModels/DefaultCube.obj" });
-            modelBuilder.Entity<OBJAttachment>().HasData(new OBJAttachment { ID = 2, OBJFilePath = "/3DModels/DefaultCube.obj" });
-            modelBuilder.Entity<OBJAttachment>().HasData(new OBJAttachment { ID = 3, OBJFilePath = "/3DModels/DefaultCube.obj" });
+            modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 1, Naziv = "Ivan", Adresa = "Zagorska3", Grad = "Konjscina", Drzava = "Hrvatska", OIB = 12345678912 });
+            modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 2, Naziv = "Ivan2", Adresa = "Zagorska34", Grad = "Konjscina2", Drzava = "Hrvatska2", OIB = 12345678956 });
+            modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 3, Naziv = "Ivan3", Adresa = "Zagorska35", Grad = "Konjscina3", Drzava = "Hrvatska3", OIB = 12345678987 });
 
-            modelBuilder.Entity<ThreeD>().HasData(new ThreeD { ID = 1, Name = "Object1", Comment = "Lorem Ipsum1", UploadedDateTime = DateTime.Now, CreatedBy = "Josip Skrlec1", CategoryID = 1,objAttachmentID = 3 });
-            modelBuilder.Entity<ThreeD>().HasData(new ThreeD { ID = 2, Name = "Object2", Comment = "Lorem Ipsum2", UploadedDateTime = DateTime.Now, CreatedBy = "Josip Skrlec2", CategoryID = 3,objAttachmentID = 2 });
-            modelBuilder.Entity<ThreeD>().HasData(new ThreeD { ID = 3, Name = "Object3", Comment = "Lorem Ipsum3", UploadedDateTime = DateTime.Now, CreatedBy = "Josip Skrlec3", CategoryID = 2,objAttachmentID = 1 });
+            // TODO - napraviti ostale migracijske skripte
 
-            
         }
     }
 }
