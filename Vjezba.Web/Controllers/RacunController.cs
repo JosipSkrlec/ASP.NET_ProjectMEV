@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,16 +12,14 @@ using Vjezba.DAL;
 using Vjezba.Model;
 using Vjezba.Web.Models;
 
-// https://threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
-
 namespace Vjezba.Web.Controllers
 {
-    public class ThreeDController : BaseController
+    public class RacunController : BaseController
     {
-        private static string filePathForDB;
+        //private static string filePathForDB;
         private RacunModelDbContext _dbContext;
 
-        public ThreeDController(RacunModelDbContext dbContext, UserManager<AppUser> userManager) : base(userManager)
+        public RacunController(RacunModelDbContext dbContext, UserManager<AppUser> userManager) : base(userManager)
         {
             this._dbContext = dbContext;
         }
@@ -36,7 +33,7 @@ namespace Vjezba.Web.Controllers
             return View("Index", model: ThreeDQuery);
         }
 
-        //[Authorize(Roles = "Manager,Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             this.FillDropdownValues();
@@ -52,7 +49,7 @@ namespace Vjezba.Web.Controllers
                 model.CreatedBy = UserId;              
 
                 OBJAttachment objatt = new OBJAttachment();
-                objatt.OBJFilePath = filePathForDB;
+                //objatt.OBJFilePath = filePathForDB;
                 model.objAttachment = objatt;
                 
                 model.UploadedDateTime = DateTime.Now;
@@ -117,7 +114,7 @@ namespace Vjezba.Web.Controllers
             var fileName = file.FileName;
             var filePath = Path.Combine(FileDic, fileName);
 
-            filePathForDB = "/3DModels/" + fileName;
+            //filePathForDB = "/3DModels/" + fileName;
 
             using (FileStream fs = System.IO.File.Create(filePath))
             {

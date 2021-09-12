@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Vjezba.Model
 {
     public class AppUser : IdentityUser
     {
+        // DODANO
+        [Required]
+        [RegularExpression("[0-9]{13}")]
+        public string Name { get; set; }
+        [Required]
+        [RegularExpression("[0-9]{13}")]
+        public string Surname { get; set; }
+        // DODANO DO OVDJE
+
         [Required]
         [RegularExpression("[0-9]{13}")]
         public string JMBG { get; set; }

@@ -89,7 +89,7 @@ namespace Vjezba.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.Email, Email = Input.Email.Trim(), OIB = Input.OIB, JMBG = Input.JMBG };
+                var user = new AppUser { Name = Input.Name, Surname = Input.Surname, UserName = Input.Email, Email = Input.Email.Trim(), OIB = Input.OIB, JMBG = Input.JMBG };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
