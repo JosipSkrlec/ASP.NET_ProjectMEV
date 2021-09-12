@@ -1,0 +1,20 @@
+﻿@using Vjezba.Web.Models
+
+@model ThreeDFilterModel
+
+<form id="filter-form" method="post">
+    <div class="form-row">
+        <div class="col-3">
+            <input asp-for="Name" class="form-control" type="text" placeholder="Model Name" />
+        </div>
+        <div class="col-3">
+            <input asp-for="Category" class="form-control" type="text" placeholder="Model Category" />
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-outline-info" id="filterBtn">Search</button>
+        </div>
+        <div class="col-2">
+            <button asp-action="Create" class="btn btn-outline-success">Add new 3DModel</button>
+        </div>
+    </div>
+</form>

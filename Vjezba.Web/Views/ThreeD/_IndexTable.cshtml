@@ -1,0 +1,26 @@
+﻿@using Vjezba.Model
+@model List<ThreeD>
+
+<table style="margin-top: 20px;" class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Model name</th>
+            <th>Model Category</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Category?.Name</td>
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">[details]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
