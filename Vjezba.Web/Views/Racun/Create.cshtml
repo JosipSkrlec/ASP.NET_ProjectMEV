@@ -1,0 +1,32 @@
+﻿@model Vjezba.Model.Proizvod
+
+<form action="Create" method="post">
+
+    <div class="form-group">
+        <label class="control-label">Upisi ime</label>
+        <input asp-for="Naziv" class="form-control" />
+        <span asp-validation-for="Naziv" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Upisi cijenu </label>
+        <input asp-for="Cijena" class="form-control" />
+        <span asp-validation-for="Cijena" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Upisi mjernu jedinicu</label>
+        <select asp-for="MjernaJedinica" asp-items="ViewBag.PossibleCategoryes"  class="form-control"></select>
+        <span asp-validation-for="MjernaJedinica" class="text-danger"></span>
+    </div>
+
+    @*<div class="form-group">
+        <label class="control-label">Upisi mjernu jedinicu</label>
+        <select asp-for="OznakaGrupe" asp-items="ViewBag.PossibleCategoryes" class="form-control"></select>
+        <span asp-validation-for="OznakaGrupe" class="text-danger"></span>
+    </div>*@
+
+    <div class="form-group">
+        <input type="submit" value="Spremi novi proizvod" class="btn btn-outline-success" />
+    </div>
+</form>

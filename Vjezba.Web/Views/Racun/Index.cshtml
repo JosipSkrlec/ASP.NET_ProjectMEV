@@ -1,0 +1,51 @@
+﻿@using Vjezba.Model
+@model List<ThreeD>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    .tab-pane {
+        padding: 20px;
+    }
+</style>
+
+<h1>Popis 3D modela</h1>
+<div style="margin-top: 20px; margin-bottom: 10px;">
+    <partial name="_ThreeDFilter" model="new ThreeDFilterModel()" />
+
+</div>
+
+<div id="table-cont">
+
+</div>
+
+@section Scripts{
+    <script>
+
+        $("#filterBtn").click(function () {
+			$.ajax({
+				url: "@Url.Action("AjaxSearch")",
+				method: "POST",
+				data: $("#filter-form").serialize(),
+				success: function(html) {
+					console.log(html);
+					$("#table-cont").html(html);
+				},
+            })
+        })
+
+        $(document).ready(function () {
+            $.ajax({
+             url: "@Url.Action("AjaxSearch")",
+				method: "POST",
+				data: $("#filter-form").serialize(),
+				success: function(html) {
+					console.log(html);
+					$("#table-cont").html(html);
+				},
+            });
+        });
+
+    </script>
+}

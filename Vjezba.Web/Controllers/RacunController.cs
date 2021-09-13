@@ -33,43 +33,43 @@ namespace Vjezba.Web.Controllers
             return View("Index", model: ThreeDQuery);
         }
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult Create()
-        {
-            this.FillDropdownValues();
-            return View();
-        }
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult Create()
+        //{
+        //    this.FillDropdownValues();
+        //    return View();
+        //}
 
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public IActionResult Create(ThreeD model)
-        {
-            if (ModelState.IsValid)
-            {
-                model.CreatedBy = UserId;              
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost]
+        //public IActionResult Create(ThreeD model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        model.CreatedBy = UserId;              
 
-                OBJAttachment objatt = new OBJAttachment();
-                //objatt.OBJFilePath = filePathForDB;
-                model.objAttachment = objatt;
+        //        OBJAttachment objatt = new OBJAttachment();
+        //        //objatt.OBJFilePath = filePathForDB;
+        //        model.objAttachment = objatt;
                 
-                model.UploadedDateTime = DateTime.Now;
+        //        model.UploadedDateTime = DateTime.Now;
 
-                int categoryid = model.CategoryID;
-                model.CategoryID = categoryid;
+        //        int categoryid = model.CategoryID;
+        //        model.CategoryID = categoryid;
 
-                //this._dbContext.threeD.Add(model);
-                this._dbContext.SaveChanges();
+        //        //this._dbContext.threeD.Add(model);
+        //        this._dbContext.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                this.FillDropdownValues();
-                // modelstate se ponistava tako da prilikom load-a ne prikaze validaciju
-                ModelState.Clear();
-                return View();
-            }
-        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    else
+        //    {
+        //        this.FillDropdownValues();
+        //        // modelstate se ponistava tako da prilikom load-a ne prikaze validaciju
+        //        ModelState.Clear();
+        //        return View();
+        //    }
+        //}
 
         [Authorize(Roles = "Admin,User")]
         public IActionResult Details(int? id = null)
@@ -126,16 +126,67 @@ namespace Vjezba.Web.Controllers
             var selectItems = new List<SelectListItem>();
 
             var listItem = new SelectListItem();
-            listItem.Text = "- 3D/Category -";
-            listItem.Value = "";
+            listItem.Text = "- Odaberi mjernu jedinicu -";
             selectItems.Add(listItem);
+
+            var listItem1 = new SelectListItem();
+            listItem1.Text = "kn";
+            selectItems.Add(listItem1);
+
+            var listItem2 = new SelectListItem();
+            listItem2.Text = "kn/h";
+            selectItems.Add(listItem2);
+
+            var listItem3 = new SelectListItem();
+            listItem3.Text = "kg";
+            selectItems.Add(listItem3);
 
             //foreach (var category in this._dbContext.threeDCategoryes)
             //{
             //    listItem = new SelectListItem(category.Name, category.ID.ToString());
-            //    selectItems.Add(listItem);      
+            //    selectItems.Add(listItem);
             //}
             ViewBag.PossibleCategoryes = selectItems;
         }
+
+        // RACUN
+        // RACUN
+        //[Route("CustomRoute")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult Create()
+        {
+            this.FillDropdownValues();
+            return View();
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult Create(Proizvod model)
+        {
+            if (ModelState.IsValid)
+            {
+                Proizvod proizvod = new Proizvod();
+                //objatt.OBJFilePath = filePathForDB;
+                proizvod.Naziv = model.Naziv;
+                proizvod.Cijena = model.Cijena;
+                proizvod.MjernaJedinica = model.MjernaJedinica;
+
+                //int categoryid = model.CategoryID;
+                //model.CategoryID = categoryid;
+
+                this._dbContext.proizvod.Add(proizvod);
+                this._dbContext.SaveChanges();
+
+                return RedirectToAction("Create", "Racun");
+            }
+            else
+            {
+                this.FillDropdownValues();
+                // modelstate se ponistava tako da prilikom load-a ne prikaze validaciju
+                ModelState.Clear();
+                return View();
+            }
+        }
+
     }
 }

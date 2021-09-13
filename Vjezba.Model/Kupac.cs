@@ -6,6 +6,7 @@ namespace Vjezba.Model
     public class Kupac
     {
         [Required]
+        [Key]
         public int IDKupac { get; set; }
         public string Naziv { get; set; }
         public string Adresa { get; set; }

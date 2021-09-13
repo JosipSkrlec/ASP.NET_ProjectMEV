@@ -7,10 +7,8 @@ namespace Vjezba.Model
     {
         // DODANO
         [Required]
-        [RegularExpression("[0-9]{13}")]
         public string Name { get; set; }
         [Required]
-        [RegularExpression("[0-9]{13}")]
         public string Surname { get; set; }
         // DODANO DO OVDJE
 

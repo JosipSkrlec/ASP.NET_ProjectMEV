@@ -8,6 +8,7 @@ namespace Vjezba.Model
     public class Racun
     {
         [Required]
+        [Key]
         public int IDRacun { get; set; }
         public DateTime Datum { get; set; }
         [ForeignKey(nameof(Poduzece))]

@@ -9,6 +9,7 @@ namespace Vjezba.Model
     {
         // dodana vise jer idracun vec postoji za racun koji je foreign key
         [Required]
+        [Key]
         public int IDRacunStavka { get; set; }
         public DateTime Datum { get; set; }
         [ForeignKey(nameof(Racun))]

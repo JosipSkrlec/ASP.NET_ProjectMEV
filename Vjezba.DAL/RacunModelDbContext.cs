@@ -5,6 +5,7 @@ using Vjezba.Model;
 
 namespace Vjezba.DAL
 {
+    [Keyless]
     public class RacunModelDbContext : IdentityDbContext<AppUser>
     {
         public RacunModelDbContext(DbContextOptions<RacunModelDbContext> options) : base(options) { }
@@ -30,7 +31,7 @@ namespace Vjezba.DAL
             modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 1, Naziv = "Ivan", Adresa = "Zagorska3", Grad = "Konjscina", Drzava = "Hrvatska", OIB = 12345678912 });
             modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 2, Naziv = "Ivan2", Adresa = "Zagorska34", Grad = "Konjscina2", Drzava = "Hrvatska2", OIB = 12345678956 });
             modelBuilder.Entity<Kupac>().HasData(new Kupac { IDKupac = 3, Naziv = "Ivan3", Adresa = "Zagorska35", Grad = "Konjscina3", Drzava = "Hrvatska3", OIB = 12345678987 });
-            
+
             // MAIN 
             modelBuilder.Entity<Proizvod>().HasData(new Proizvod { IDProizvod = 1, Cijena = 45, MjernaJedinica = "KN", Naziv="Mjesana Pizza" });
             modelBuilder.Entity<Proizvod>().HasData(new Proizvod { IDProizvod = 2, Cijena = 55, MjernaJedinica = "KN", Naziv="Classic Pizza" });

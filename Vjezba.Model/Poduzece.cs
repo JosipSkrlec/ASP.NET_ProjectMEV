@@ -6,6 +6,7 @@ namespace Vjezba.Model
     public class Poduzece
     {
         [Required]
+        [Key]
         public int IDPoduzece { get; set; }
         //[Required(ErrorMessage = "Name is required")]
         public string Naziv { get; set; }

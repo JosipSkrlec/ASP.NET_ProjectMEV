@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vjezba.Model
 {
+    
     public class Korisnik
     {
         [Required]
+        [Key]
         public int IDKorisnik { get; set; }
         [Required(ErrorMessage = "Name is required")]
         public string Ime { get; set; }
