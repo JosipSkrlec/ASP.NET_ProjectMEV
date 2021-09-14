@@ -76,20 +76,29 @@ namespace Vjezba.Web.Controllers
         //        // modelstate se ponistava tako da prilikom load-a ne prikaze validaciju
         //        ModelState.Clear();
         //        return View();
+        //        return View();
+        
         //    }
         //}
 
-        [Authorize(Roles = "Admin,User")]
+        //[Authorize(Roles = "Admin,User")]
         public IActionResult Details(int? id = null)
         {
-            //var ThreeD = this._dbContext.threeD
-            //    .Include(t => t.objAttachment)
-            //.FirstOrDefault(p => p.objAttachmentID == id);
+            var proizvod = this._dbContext.proizvod
+            .FirstOrDefault(p => p.IDProizvod == id);
 
-            //ViewBag.FilePath = ThreeD.objAttachment.OBJFilePath;
-            //ViewBag.FileComment = ThreeD.Comment;
-            //ViewBag.FileDateModified = ThreeD.UploadedDateTime;
-            return View("_3DModelView");
+            return View("Details", proizvod);
+        }
+
+        public IActionResult Delete(int? id = null)
+        {
+            var proizvod = this._dbContext.proizvod
+            .FirstOrDefault(p => p.IDProizvod == id);
+
+            this._dbContext.proizvod.Remove(proizvod);
+            this._dbContext.SaveChanges();
+
+            return View("IndexTable");
         }
 
         [AllowAnonymous]

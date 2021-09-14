@@ -1,0 +1,40 @@
+﻿@using Vjezba.Model
+@model Proizvod
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=UTF-8 />
+</head>
+
+<body>
+    <script src="~/js/three.js"></script>
+    <script src="~/js/OrbitControls.js"></script>
+    <script src="~/js/OBJLoader.js"></script>
+    <table style="margin-top: 20px;" class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Naziv proizvoda</th>
+                <td>@Model.Naziv</td>
+
+            </tr>
+            <tr>
+                <th>Cijena proizvoda</th>
+                <td>@Model.Cijena</td>
+
+            </tr>
+            <tr>
+                <th>Oznaka</th>
+                <td>@Model.MjernaJedinica</td>
+
+            </tr>
+
+        </thead>
+
+    </table>
+
+    <a class="dz-button" asp-area="" asp-controller="Racun" asp-action="IndexTable">Povratak na popis robe</a>
+
+</body>
+</html>
