@@ -5,7 +5,7 @@ using Vjezba.Model;
 
 namespace Vjezba.DAL
 {
-    [Keyless]
+    //[Keyless]
     public class RacunModelDbContext : IdentityDbContext<AppUser>
     {
         public RacunModelDbContext(DbContextOptions<RacunModelDbContext> options) : base(options) { }

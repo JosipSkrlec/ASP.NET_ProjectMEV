@@ -1,8 +1,8 @@
 ﻿@using Vjezba.Model
-@model List<ThreeD>
+@model List<Proizvod>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Proizvod/Usluga List";
 }
 <style>
     .tab-pane {
@@ -12,7 +12,7 @@
 
 <h1>Popis 3D modela</h1>
 <div style="margin-top: 20px; margin-bottom: 10px;">
-    <partial name="_ThreeDFilter" model="new ThreeDFilterModel()" />
+    <partial name="_ThreeDFilter" model="new ProizvodUslugaFilterModel()" />
 
 </div>
 

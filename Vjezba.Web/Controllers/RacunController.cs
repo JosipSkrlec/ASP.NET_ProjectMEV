@@ -25,7 +25,7 @@ namespace Vjezba.Web.Controllers
         }
 
         //[AllowAnonymous]
-        public IActionResult Index(ThreeDFilterModel filter)
+        public IActionResult Index(ProizvodUslugaFilterModel filter)
         {
             //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
             var ThreeDQuery = this._dbContext.korisnik.Include(p => p.IDPoduzece).ToList();
@@ -33,6 +33,14 @@ namespace Vjezba.Web.Controllers
             return View("Index", model: ThreeDQuery);
         }
 
+        public IActionResult IndexTable(ProizvodUslugaFilterModel filter)
+        {
+            //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
+            var ThreeDQuery = this._dbContext.proizvod.ToList();
+
+            return View("IndexTable", model: ThreeDQuery);
+        }
+        
         //[Authorize(Roles = "Admin")]
         //public IActionResult Create()
         //{
@@ -51,7 +59,7 @@ namespace Vjezba.Web.Controllers
         //        OBJAttachment objatt = new OBJAttachment();
         //        //objatt.OBJFilePath = filePathForDB;
         //        model.objAttachment = objatt;
-                
+
         //        model.UploadedDateTime = DateTime.Now;
 
         //        int categoryid = model.CategoryID;
@@ -86,13 +94,13 @@ namespace Vjezba.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult AjaxSearch(ThreeDFilterModel filter)
+        public IActionResult AjaxSearch(ProizvodUslugaFilterModel filter)
         {
             //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment)
             //    .Include(c => c.Category)
             //    .AsQueryable();
 
-            filter = filter ?? new ThreeDFilterModel();
+            filter = filter ?? new ProizvodUslugaFilterModel();
 
             //if (!string.IsNullOrWhiteSpace(filter.Name))
             //{
