@@ -30,9 +30,9 @@ namespace Vjezba.Web.Controllers
         public IActionResult Index(ProizvodUslugaFilterModel filter)
         {
             //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
-            var ThreeDQuery = this._dbContext.korisnik.Include(p => p.IDPoduzece).ToList();
+            var proizvodList = this._dbContext.korisnik.Include(p => p.IDPoduzece).ToList();
 
-            return View("Index", model: ThreeDQuery);
+            return View("Index", model: proizvodList);
         }
 
         public IActionResult IndexTable(ProizvodUslugaFilterModel filter)
@@ -85,6 +85,8 @@ namespace Vjezba.Web.Controllers
                 string cart = HttpContext.Session.GetString("cart");
 
                 cart += "," + id;
+
+                //1,4,3,2,1,78,
 
                 HttpContext.Session.SetString("cart", cart);
             }
@@ -207,14 +209,14 @@ namespace Vjezba.Web.Controllers
         // RACUN
         // RACUN
         //[Route("CustomRoute")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             this.FillDropdownValues();
             return View();
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create(Proizvod model)
         {
