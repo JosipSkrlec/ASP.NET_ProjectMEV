@@ -37,13 +37,13 @@ namespace Vjezba.Web.Controllers
                 {
                     PdfWriter.GetInstance(pdfDokument, memo).CloseStream = false;
                     pdfDokument.Open();
-                    //var logo = iTextSharp.text.Image.GetInstance(HostingEnvironment.MapPath("~/images/mev.jpg"));
-                    //logo.Alignment = Element.ALIGN_LEFT;
-                    //logo.ScaleAbsoluteWidth(50);
-                    //logo.ScaleAbsoluteHeight(50);
+                    var logo = iTextSharp.text.Image.GetInstance(@"wwwroot\Logo\SavanaLogo.PNG");
+                    logo.Alignment = Element.ALIGN_LEFT;
+                    logo.ScaleAbsoluteWidth(330);
+                    logo.ScaleAbsoluteHeight(120);
 
                     Paragraph info = new Paragraph();
-                    info.Add(new Chunk("Studentska menza Čakovec - Ivan Bočkal Projekt \n", headerBold));
+                    info.Add(new Chunk("Ivan Bočkal Projekt \n", headerBold));
                     //info.Add(new Chunk("BANA JOSIPA JELAČIĆA 22a \n" + "Čakovec \n", header));
 
                     PdfPTable tableHeader;
@@ -55,10 +55,10 @@ namespace Vjezba.Web.Controllers
                     widthsTableHeader = new float[] { 1f, 3f };
                     tableHeader.SetWidths(widthsTableHeader);
 
-                    //PdfPCell cLogo = null;
-                    //cLogo = new PdfPCell(logo);
-                    //cLogo.Border = Rectangle.NO_BORDER;
-                    //tableHeader.AddCell(cLogo);
+                    PdfPCell cLogo = null;
+                    cLogo = new PdfPCell(logo);
+                    cLogo.Border = Rectangle.NO_BORDER;
+                    tableHeader.AddCell(cLogo);
 
                     PdfPCell cInfo = new PdfPCell(info);
                     cInfo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
