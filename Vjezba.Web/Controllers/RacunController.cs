@@ -12,6 +12,8 @@ using Vjezba.DAL;
 using Vjezba.Model;
 using Vjezba.Web.Models;
 
+// serija na serveru
+// cookies in browser
 namespace Vjezba.Web.Controllers
 {
     public class RacunController : BaseController
@@ -36,50 +38,85 @@ namespace Vjezba.Web.Controllers
         public IActionResult IndexTable(ProizvodUslugaFilterModel filter)
         {
             //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
-            var ThreeDQuery = this._dbContext.proizvod.ToList();
+            var proizvodList = this._dbContext.proizvod.ToList();
 
-            return View("IndexTable", model: ThreeDQuery);
+            return View("IndexTable", model: proizvodList);
         }
-        
-        //[Authorize(Roles = "Admin")]
-        //public IActionResult Create()
-        //{
-        //    this.FillDropdownValues();
-        //    return View();
-        //}
 
-        //[Authorize(Roles = "Admin")]
-        //[HttpPost]
-        //public IActionResult Create(ThreeD model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        model.CreatedBy = UserId;              
+        public IActionResult ShoppingCart()
+        {
+            //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
+            //var proizvodList = this._dbContext.proizvod.ToList();
 
-        //        OBJAttachment objatt = new OBJAttachment();
-        //        //objatt.OBJFilePath = filePathForDB;
-        //        model.objAttachment = objatt;
+            string cart = HttpContext.Session.GetString("cart");
 
-        //        model.UploadedDateTime = DateTime.Now;
+            if (cart == null)
+            {
+                return RedirectToAction("ShoppingCart");
+            }
 
-        //        int categoryid = model.CategoryID;
-        //        model.CategoryID = categoryid;
+            string[] separated = cart.Split(",");
 
-        //        //this._dbContext.threeD.Add(model);
-        //        this._dbContext.SaveChanges();
+            List<Proizvod> proizvodList = new List<Proizvod>(); /*this._dbContext.proizvod.Where(p => p.IDProizvod ==);*/
 
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    else
-        //    {
-        //        this.FillDropdownValues();
-        //        // modelstate se ponistava tako da prilikom load-a ne prikaze validaciju
-        //        ModelState.Clear();
-        //        return View();
-        //        return View();
-        
-        //    }
-        //}
+            foreach (var item in separated)
+            {
+                proizvodList.Add(this._dbContext.proizvod.Find(int.Parse(item)));
+            }
+
+
+            return View("ShoppingCart", proizvodList);
+        }
+
+        public IActionResult AddToShopingCart(int? id = null)
+        {
+            //var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
+            //var proizvodList = this._dbContext.proizvod.ToList();
+
+            if (HttpContext.Session.GetString("cart") == null)
+            {
+                HttpContext.Session.SetString("cart", id.ToString());
+
+                //return View("IndexTable"/*, model: proizvodList*/);
+                return RedirectToAction("IndexTable"); // u slucaju kada trebamo samo view!
+            }
+            else
+            {                
+                string cart = HttpContext.Session.GetString("cart");
+
+                cart += "," + id;
+
+                HttpContext.Session.SetString("cart", cart);
+            }
+
+            //return View("IndexTable",null/*, model: proizvodList*/);
+            return RedirectToAction("IndexTable");
+        }  
+
+        public IActionResult CreatePDF(List<Proizvod> proizvodList)
+        {
+            string cart = HttpContext.Session.GetString("cart");
+
+            if (cart == null)
+            {
+                return RedirectToAction("ShoppingCart");
+            }
+
+            string[] separated = cart.Split(",");
+
+            proizvodList = new List<Proizvod>(); /*this._dbContext.proizvod.Where(p => p.IDProizvod ==);*/
+
+            foreach (var item in separated)
+            {
+                proizvodList.Add(this._dbContext.proizvod.Find(int.Parse(item)));
+            }
+
+            RacuniPDF pdf = new RacuniPDF(_dbContext);
+
+            pdf.GenerirajPDF(proizvodList);
+
+            return File(pdf.Podaci, System.Net.Mime.MediaTypeNames.Application.Pdf, "RacunStavke.pdf");
+        }
 
         //[Authorize(Roles = "Admin,User")]
         public IActionResult Details(int? id = null)
@@ -90,15 +127,16 @@ namespace Vjezba.Web.Controllers
             return View("Details", proizvod);
         }
 
+        [Authorize(Roles = "Admin")]/*,User*/
         public IActionResult Delete(int? id = null)
         {
-            var proizvod = this._dbContext.proizvod
-            .FirstOrDefault(p => p.IDProizvod == id);
+            var proizvod = this._dbContext.proizvod.FirstOrDefault(p => p.IDProizvod == id);
 
             this._dbContext.proizvod.Remove(proizvod);
             this._dbContext.SaveChanges();
 
-            return View("IndexTable");
+
+            return View("IndexTable", this._dbContext.proizvod.ToList());
         }
 
         [AllowAnonymous]

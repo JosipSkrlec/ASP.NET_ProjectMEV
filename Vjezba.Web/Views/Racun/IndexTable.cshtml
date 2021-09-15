@@ -6,7 +6,7 @@
         <tr>
             <th>Naziv proizvoda</th>
             <th>Cijena proizvoda</th>
-            <th>Oznaka</th>
+            @*<th>Oznaka</th>*@
             <th>Mj jedinica</th>
             <th></th>
         </tr>
@@ -18,13 +18,16 @@
         <tr>
             <td>@item.Naziv</td>
             <td>@item.Cijena</td>
-            <td>@item.OznakaGrupe</td>
+            @*<td>@item.OznakaGrupe</td>*@
             <td>@item.MjernaJedinica</td>
             <td>
                 <a asp-controller="Racun" asp-action="Details" asp-route-id="@item.IDProizvod">[detalji o proizvodu]</a>
             </td>
             <td>
                 <a asp-controller="Racun" asp-action="Delete" asp-route-id="@item.IDProizvod">[Obrisi robu]</a>
+            </td>
+            <td>
+                <a asp-controller="Racun" asp-action="AddToShopingCart" asp-route-id="@item.IDProizvod">[dodaj u košaricu]</a>
             </td>
 
         </tr>}

@@ -1,0 +1,29 @@
+﻿@using Vjezba.Model
+@model List<Proizvod>
+
+<table style="margin-top: 20px;" class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Naziv proizvoda</th>
+            <th>Cijena proizvoda</th>
+            @*<th>Oznaka</th>*@
+            <th>Mj jedinica</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>@item.Naziv</td>
+    <td>@item.Cijena</td>
+    @*<td>@item.OznakaGrupe</td>*@
+    <td>@item.MjernaJedinica</td>
+
+</tr>
+}
+    </tbody>
+
+</table>
+
+<a asp-controller="Racun" asp-action="CreatePDF" asp-route-id="@Model">Ispiši PDF</a>

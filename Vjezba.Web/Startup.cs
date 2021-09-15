@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Globalization;
 using System.IO;
 using Vjezba.DAL;
@@ -28,9 +29,18 @@ namespace Vjezba.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddDbContext<RacunModelDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("ThreeDModelDbContext"),
+                    Configuration.GetConnectionString("RacunModelDbContext"),
                     opt => opt.MigrationsAssembly("Vjezba.DAL")));
 
             /*services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -44,11 +54,13 @@ namespace Vjezba.Web
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
 
-            services.AddAuthentication().AddGoogle(opt =>
-            {
-                opt.ClientId = "930756123504-3pum46ta993gpj486eks2qeviebovaps.apps.googleusercontent.com";
-                opt.ClientSecret = "Xdr0KdhALmPoi8HRayj-c8vh";
-            });
+
+
+            //services.AddAuthentication().AddGoogle(opt =>
+            //{
+            //    opt.ClientId = "930756123504-3pum46ta993gpj486eks2qeviebovaps.apps.googleusercontent.com";
+            //    opt.ClientSecret = "Xdr0KdhALmPoi8HRayj-c8vh";
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,16 +69,16 @@ namespace Vjezba.Web
 
             // Adding new mappings
             // provider za .obj file MIME type
-            var provider = new FileExtensionContentTypeProvider();
-            provider.Mappings[".obj"] = "text/plain";
+            //var provider = new FileExtensionContentTypeProvider();
+            //provider.Mappings[".obj"] = "text/plain";
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "3DModels")),
-                RequestPath = "/3DModels",
-                ContentTypeProvider = provider
-            });
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "3DModels")),
+            //    RequestPath = "/3DModels",
+            //    ContentTypeProvider = provider
+            //});
             // do tuda
 
             if (env.IsDevelopment())
@@ -83,6 +95,8 @@ namespace Vjezba.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
