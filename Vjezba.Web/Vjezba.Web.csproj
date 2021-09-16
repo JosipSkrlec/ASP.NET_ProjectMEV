@@ -29,6 +29,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\data\" />
     <Folder Include="wwwroot\Logo\" />
+    <Folder Include="wwwroot\PDFs\" />
   </ItemGroup>
 
   <ItemGroup>
